@@ -4,6 +4,7 @@ import cn.xiehuangbaobao.weddingservice.WeddingserviceApplicationTests;
 import com.alibaba.fastjson.JSON;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Arrays;
 
 import java.util.List;
 
@@ -25,7 +26,9 @@ public class InvitationDaoTest extends WeddingserviceApplicationTests {
 
     @Test
     public void getAllGuest() {
-        List<Guest> result = invitationDao.getAllGuest();
+        GuestExample example = new GuestExample();
+        example.createCriteria().andIdIn(Arrays.asList(1000,1001));
+        List<Guest> result = invitationDao.getAllGuest(example);
         System.out.println(JSON.toJSONString(result));
     }
 
@@ -40,7 +43,9 @@ public class InvitationDaoTest extends WeddingserviceApplicationTests {
 
     @Test
     public void getAllComment(){
-        List<Comment> comments = invitationDao.getAllComment();
+        CommentExample example = new CommentExample();
+        example.createCriteria().andGuestIdIsNotNull();
+        List<Comment> comments = invitationDao.getByCondition(example);
         System.out.println(JSON.toJSONString(comments));
     }
 }

@@ -18,15 +18,15 @@ public class InvitationDao {
         guestMapper.insert(guest);
     }
 
-    public List<Guest> getAllGuest(){
-        return guestMapper.selectAll();
+    public List<Guest> getAllGuest(GuestExample guestExample){
+        return guestMapper.selectByExample(guestExample);
     }
 
     public void insertComment(Comment comment){
         commentMapper.insert(comment);
     }
 
-    public List<Comment> getAllComment(){
-        return commentMapper.selectAll();
+    public List<Comment> getByCondition(CommentExample example){
+        return commentMapper.selectByExample(example);
     }
 }

@@ -1,11 +1,9 @@
 package cn.xiehuangbaobao.weddingservice.invitation.dao;
 
 import lombok.Data;
-import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.util.Date;
-
 @Data
 public class Comment implements Serializable {
     /**
