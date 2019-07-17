@@ -11,11 +11,22 @@ public class InvitationDao {
     @Autowired
     private GuestMapper guestMapper;
 
+    @Autowired
+    private CommentMapper commentMapper;
+
     public void insertGuest(Guest guest){
         guestMapper.insert(guest);
     }
 
     public List<Guest> getAllGuest(){
         return guestMapper.selectAll();
+    }
+
+    public void insertComment(Comment comment){
+        commentMapper.insert(comment);
+    }
+
+    public List<Comment> getAllComment(){
+        return commentMapper.selectAll();
     }
 }

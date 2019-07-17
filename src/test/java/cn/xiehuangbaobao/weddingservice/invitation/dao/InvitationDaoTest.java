@@ -28,4 +28,19 @@ public class InvitationDaoTest extends WeddingserviceApplicationTests {
         List<Guest> result = invitationDao.getAllGuest();
         System.out.println(JSON.toJSONString(result));
     }
+
+    @Test
+    public void insertComment(){
+        Comment comment = new Comment();
+        comment.setId(1);
+        comment.setGuestId(1000);
+        comment.setComment("hhhaaaahaaaa");
+        invitationDao.insertComment(comment);
+    }
+
+    @Test
+    public void getAllComment(){
+        List<Comment> comments = invitationDao.getAllComment();
+        System.out.println(JSON.toJSONString(comments));
+    }
 }
