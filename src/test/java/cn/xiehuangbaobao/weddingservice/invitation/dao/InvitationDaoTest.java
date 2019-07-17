@@ -45,7 +45,7 @@ public class InvitationDaoTest extends WeddingserviceApplicationTests {
     public void getAllComment(){
         CommentExample example = new CommentExample();
         example.createCriteria().andGuestIdIsNotNull();
-        List<Comment> comments = invitationDao.getByCondition(example);
+        List<Comment> comments = invitationDao.getByCommentCondition(example);
         System.out.println(JSON.toJSONString(comments));
     }
 }

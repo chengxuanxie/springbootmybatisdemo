@@ -26,7 +26,7 @@ public class InvitationDao {
         commentMapper.insert(comment);
     }
 
-    public List<Comment> getByCondition(CommentExample example){
-        return commentMapper.selectByExample(example);
+    public List<Comment> getByCommentCondition(CommentExample example){
+        return commentMapper.selectByExampleWithBLOBs(example);
     }
 }
