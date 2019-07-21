@@ -10,7 +10,7 @@
     </parent>
     <groupId>cn.xiehuangbaobao</groupId>
     <artifactId>weddingservice</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.2</version>
     <name>weddingservice</name>
     <description>serviceforweddinginvitation</description>
 
