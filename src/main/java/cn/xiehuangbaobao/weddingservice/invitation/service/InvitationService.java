@@ -81,4 +81,11 @@ public class InvitationService {
 
     }
 
+    @GetMapping("/rest/weixin")
+    public String valideWexin(@RequestParam String signature, @RequestParam String timestamp,
+                              @RequestParam String nonce,@RequestParam String echostr){
+        System.out.println(echostr);
+        return echostr;
+    }
+
 }
