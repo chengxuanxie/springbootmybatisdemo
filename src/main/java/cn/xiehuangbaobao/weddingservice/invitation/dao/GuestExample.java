@@ -1,6 +1,7 @@
 package cn.xiehuangbaobao.weddingservice.invitation.dao;
 
 import lombok.Data;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -162,6 +163,22 @@ public class GuestExample {
         protected GeneratedCriteria() {
             super();
             criteria = new ArrayList<Criterion>();
+        }
+
+        public Criteria of(Guest guest){
+            if(guest.getId() != null){
+                this.andIdEqualTo( guest.getId());
+            }
+            if(!StringUtils.isEmpty(guest.getName())){
+                this.andNameEqualTo(guest.getName());
+            }
+            if(!StringUtils.isEmpty(guest.getWechatId())){
+                this.andWechatIdEqualTo(guest.getWechatId());
+            }
+            if(!StringUtils.isEmpty(guest.getWechatName())){
+                this.andWechatNameEqualTo(guest.getWechatName());
+            }
+            return (Criteria) this;
         }
 
         public boolean isValid() {

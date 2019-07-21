@@ -28,7 +28,7 @@ public class InvitationDaoTest extends WeddingserviceApplicationTests {
     public void getAllGuest() {
         GuestExample example = new GuestExample();
         example.createCriteria().andIdIn(Arrays.asList(1000,1001));
-        List<Guest> result = invitationDao.getAllGuest(example);
+        List<Guest> result = invitationDao.getGuestBycondition(example);
         System.out.println(JSON.toJSONString(result));
     }
 
@@ -47,5 +47,21 @@ public class InvitationDaoTest extends WeddingserviceApplicationTests {
         example.createCriteria().andGuestIdIsNotNull();
         List<Comment> comments = invitationDao.getByCommentCondition(example);
         System.out.println(JSON.toJSONString(comments));
+    }
+
+    @Test
+    public void updateByExampleSelective(){
+        Guest guest = JSON.parseObject("{\n" +
+                "\t\"name\":\"xcx\",\n" +
+                "\t\"wechatName\":\"xcx wechat\",\n" +
+                "\t\"wechatId\": \"xcx wechat id\",\n" +
+                "\t\"attend\":\"FUMANLOU 1\"\n" +
+                "}",Guest.class);
+
+        GuestExample example = new GuestExample();
+        example.createCriteria().of(guest);
+
+        invitationDao.updateByExampleSelective(guest,example);
+
     }
 }

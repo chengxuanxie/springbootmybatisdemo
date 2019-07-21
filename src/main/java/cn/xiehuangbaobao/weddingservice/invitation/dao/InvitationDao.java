@@ -18,7 +18,7 @@ public class InvitationDao {
         guestMapper.insert(guest);
     }
 
-    public List<Guest> getAllGuest(GuestExample guestExample){
+    public List<Guest> getGuestBycondition(GuestExample guestExample){
         return guestMapper.selectByExample(guestExample);
     }
 
@@ -28,5 +28,9 @@ public class InvitationDao {
 
     public List<Comment> getByCommentCondition(CommentExample example){
         return commentMapper.selectByExampleWithBLOBs(example);
+    }
+
+    public void updateByExampleSelective(Guest guest, GuestExample example){
+        guestMapper.updateByExampleSelective(guest, example);
     }
 }

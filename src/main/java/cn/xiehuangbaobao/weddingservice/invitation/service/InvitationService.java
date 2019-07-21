@@ -3,6 +3,9 @@ package cn.xiehuangbaobao.weddingservice.invitation.service;
 import cn.xiehuangbaobao.weddingservice.invitation.dao.*;
 import cn.xiehuangbaobao.weddingservice.invitation.domain.CommentReq;
 import cn.xiehuangbaobao.weddingservice.invitation.domain.CommonRsp;
+import cn.xiehuangbaobao.weddingservice.invitation.domain.GuestReq;
+import com.alibaba.fastjson.JSON;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +26,7 @@ public class InvitationService {
 
         guestExample.createCriteria().andIdEqualTo(req.getGuestId());
 
-        List<Guest> guestList = invitationDao.getAllGuest(guestExample);
+        List<Guest> guestList = invitationDao.getGuestBycondition(guestExample);
 
         if(CollectionUtils.isEmpty(guestList)){
             commonRsp.setRetCode("-1");
@@ -49,6 +52,33 @@ public class InvitationService {
         }
         List<Comment> result = invitationDao.getByCommentCondition(example);
         return result;
+    }
+
+    @PutMapping("/rest/guest")
+    public CommonRsp saveGuest(@RequestBody GuestReq guestReq){
+        CommonRsp commonRsp = new CommonRsp();
+        Guest guest = new Guest();
+        BeanUtils.copyProperties(guestReq,guest);
+        GuestExample example = new GuestExample();
+        example.createCriteria().of(guest);
+        List<Guest> oldGuests = invitationDao.getGuestBycondition(example);
+        if(CollectionUtils.isEmpty(oldGuests)){
+            invitationDao.insertGuest(guest);
+            commonRsp.setRetCode("0");
+            commonRsp.setRetMsg("create success!");
+        }else if(oldGuests.size() == 1){
+            invitationDao.updateByExampleSelective(guest, example);
+            commonRsp.setRetCode("0");
+            commonRsp.setRetMsg("update success!");
+        }
+        else {
+            commonRsp.setRetCode("-1");
+            commonRsp.setRetMsg("duplicate guest found");
+            return commonRsp;
+        }
+
+        return commonRsp;
+
     }
 
 }
