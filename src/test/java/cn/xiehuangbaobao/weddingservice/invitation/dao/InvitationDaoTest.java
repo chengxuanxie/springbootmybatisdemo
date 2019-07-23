@@ -37,7 +37,7 @@ public class InvitationDaoTest extends WeddingserviceApplicationTests {
         Comment comment = new Comment();
         comment.setId(1);
         comment.setGuestId(1000);
-        comment.setComment("hhhaaaahaaaa");
+        comment.setComment("你好");
         invitationDao.insertComment(comment);
     }
 

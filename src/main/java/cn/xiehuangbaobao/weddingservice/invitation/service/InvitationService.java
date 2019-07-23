@@ -54,6 +54,25 @@ public class InvitationService {
         return result;
     }
 
+    @GetMapping("/rest/guest")
+    public List<Guest> getComment(@RequestParam(required=false) Integer id,
+                                  @RequestParam(required=false) String name,
+                                  @RequestParam(required=false) String wechatId){
+        GuestExample example = new GuestExample();
+        GuestExample.Criteria criteria = example.createCriteria();
+        if(null != id) {
+            criteria.andIdEqualTo(id);
+        }
+        if(null != name){
+            criteria.andNameEqualTo(name);
+        }
+        if(null != wechatId){
+            criteria.andWechatIdEqualTo(wechatId);
+        }
+        List<Guest> result = invitationDao.getGuestBycondition(example);
+        return result;
+    }
+
     @PutMapping("/rest/guest")
     public CommonRsp saveGuest(@RequestBody GuestReq guestReq){
         CommonRsp commonRsp = new CommonRsp();
@@ -66,6 +85,7 @@ public class InvitationService {
             invitationDao.insertGuest(guest);
             commonRsp.setRetCode("0");
             commonRsp.setRetMsg("create success!");
+            oldGuests = invitationDao.getGuestBycondition(example);
         }else if(oldGuests.size() == 1){
             invitationDao.updateByExampleSelective(guest, example);
             commonRsp.setRetCode("0");
@@ -76,6 +96,8 @@ public class InvitationService {
             commonRsp.setRetMsg("duplicate guest found");
             return commonRsp;
         }
+
+        commonRsp.setRetMsg(oldGuests.get(0).getId().toString());
 
         return commonRsp;
 
