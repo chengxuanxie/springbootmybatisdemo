@@ -94,7 +94,7 @@ public class InvitationService {
         else {
             commonRsp.setRetCode("-1");
             commonRsp.setRetMsg("duplicate guest found");
-            return commonRsp;
+            System.out.println("duplicate guest found");
         }
 
         commonRsp.setRetMsg(oldGuests.get(0).getId().toString());
